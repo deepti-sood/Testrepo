@@ -32,6 +32,25 @@ namespace Test_123
         {
             // Your recording specific initialization code goes here.
         }
+        
+        
+        public void WaitForElementToBeDisplayed(RxPath rxPath, Duration timeInterval){
+        	 Duration waitTime = 3000;
+            Duration totalTimeout = 0;
+            Element webElement = null;
+            while (!
+            (Host.Local.TryFindSingle
+            (rxPath, waitTime, out webElement)))
+            {
+                System.Threading.Thread.Sleep(waitTime.Milliseconds);
+                totalTimeout = totalTimeout + waitTime;
+                if (totalTimeout.Milliseconds > timeInterval.Milliseconds)
+                {
+                    throw new ElementNotFoundException("Elemet not found");
+                } 
+            }
+        	
+        }
 
     }
 }
